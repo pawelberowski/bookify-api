@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import Joi from 'joi';
+import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
+import { VenuesModule } from './venues/venues.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
         DATABASE_URL: Joi.string().required(),
       }),
     }),
+    VenuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
