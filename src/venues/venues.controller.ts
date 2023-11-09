@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -26,5 +27,10 @@ export class VenuesController {
   @Post()
   create(@Body() venue: VenueDto) {
     return this.venuesService.create(venue);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.venuesService.delete(id);
   }
 }
