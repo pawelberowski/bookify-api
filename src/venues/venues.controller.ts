@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
@@ -32,5 +33,10 @@ export class VenuesController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.venuesService.delete(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() venue: VenueDto) {
+    return this.venuesService.update(id, venue);
   }
 }

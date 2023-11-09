@@ -47,4 +47,26 @@ export class VenuesService {
       throw error;
     }
   }
+
+  async update(id: number, venue: VenueDto) {
+    try {
+      return await this.prismaService.venue.update({
+        data: {
+          ...venue,
+          id: undefined,
+        },
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === PrismaError.RecordDoesNotExist
+      ) {
+        throw new NotFoundException();
+      }
+      throw error;
+    }
+  }
 }
