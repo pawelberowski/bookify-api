@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
 import { VenueDto } from './venue.dto';
+import { CreateVenueDto } from './create-venue.dto';
 
 @Controller('venues')
 export class VenuesController {
@@ -26,7 +27,7 @@ export class VenuesController {
   }
 
   @Post()
-  create(@Body() venue: VenueDto) {
+  create(@Body() venue: CreateVenueDto) {
     return this.venuesService.create(venue);
   }
 
