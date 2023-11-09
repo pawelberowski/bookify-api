@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { VenueDto } from './venue.dto';
 import { Prisma } from '@prisma/client';
 import { PrismaError } from '../../prisma/prisma-error.enum';
+import { VenueNotFoundException } from './venue-not-found.exception';
 
 @Injectable()
 export class VenuesService {
@@ -19,7 +20,7 @@ export class VenuesService {
       },
     });
     if (!venue) {
-      throw new NotFoundException();
+      throw new VenueNotFoundException(id);
     }
     return venue;
   }
@@ -42,7 +43,7 @@ export class VenuesService {
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === PrismaError.RecordDoesNotExist
       ) {
-        throw new NotFoundException();
+        throw new VenueNotFoundException(id);
       }
       throw error;
     }
@@ -64,7 +65,7 @@ export class VenuesService {
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === PrismaError.RecordDoesNotExist
       ) {
-        throw new NotFoundException();
+        throw new VenueNotFoundException(id);
       }
       throw error;
     }
