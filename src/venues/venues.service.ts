@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
+import { VenueDto } from './venue.dto';
 
 @Injectable()
 export class VenuesService {
@@ -19,5 +20,11 @@ export class VenuesService {
       throw new NotFoundException();
     }
     return venue;
+  }
+
+  create(venue: VenueDto) {
+    return this.prismaService.venue.create({
+      data: venue,
+    });
   }
 }
