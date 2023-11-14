@@ -9,8 +9,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
-import { VenueDto } from './venue.dto';
 import { CreateVenueDto } from './create-venue.dto';
+import { UpdateVenueDto } from './update-venue.dto';
 
 @Controller('venues')
 export class VenuesController {
@@ -37,7 +37,7 @@ export class VenuesController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() venue: VenueDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() venue: UpdateVenueDto) {
     return this.venuesService.update(id, venue);
   }
 }

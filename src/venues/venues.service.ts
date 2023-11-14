@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
-import { VenueDto } from './venue.dto';
 import { Prisma } from '@prisma/client';
 import { PrismaError } from '../../prisma/prisma-error.enum';
 import { VenueNotFoundException } from './venue-not-found.exception';
+import { UpdateVenueDto } from './update-venue.dto';
+import { CreateVenueDto } from './create-venue.dto';
 
 @Injectable()
 export class VenuesService {
@@ -25,7 +26,7 @@ export class VenuesService {
     return venue;
   }
 
-  create(venue: VenueDto) {
+  create(venue: CreateVenueDto) {
     return this.prismaService.venue.create({
       data: venue,
     });
@@ -49,7 +50,7 @@ export class VenuesService {
     }
   }
 
-  async update(id: number, venue: VenueDto) {
+  async update(id: number, venue: UpdateVenueDto) {
     try {
       return await this.prismaService.venue.update({
         data: {
