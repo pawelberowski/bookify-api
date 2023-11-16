@@ -4,10 +4,17 @@ import * as bcrypt from 'bcrypt';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WrongCredentialsException } from './wrong-credentials-exception';
 import { LogInDto } from './dto/log-in';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { TokenPayload } from './token-payload.interface';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async signUp(signUpData: SignUpDto) {
     const hashedPassword = await bcrypt.hash(signUpData.password, 10);
@@ -45,5 +52,13 @@ export class AuthenticationService {
   async getAuthenticatedUser(logInData: LogInDto) {
     const user = await this.getUserByEmail(logInData.email);
     await this.verifyPassword(logInData.password, user.password);
+  }
+
+  getCookieWithJwtToken(userId: number) {
+    const payload: TokenPayload = { userId };
+    const token = this.jwtService.sign(payload);
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
+      'JWT_EXPIRATION_TIME',
+    )}`;
   }
 }
