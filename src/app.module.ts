@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { VenuesModule } from './venues/venues.module';
-import { AuthenticationModule } from './users/authentication.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [

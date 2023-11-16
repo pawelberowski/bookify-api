@@ -1,9 +1,14 @@
 import { PrismaService } from '../database/prisma.service';
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserDto } from './dto/user';
 import { Prisma } from '@prisma/client';
 import { PrismaError } from '../../prisma/prisma-error.enum';
 
+@Injectable()
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 

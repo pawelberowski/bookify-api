@@ -1,4 +1,4 @@
-import { UsersService } from './users.service';
+import { UsersService } from '../users/users.service';
 import { SignUpDto } from './dto/sign-up';
 import * as bcrypt from 'bcrypt';
 import { Injectable, NotFoundException } from '@nestjs/common';
