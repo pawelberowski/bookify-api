@@ -7,12 +7,14 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
 import { CreateVenueDto } from './create-venue.dto';
 import { UpdateVenueDto } from './update-venue.dto';
 import { JwtAuthenticationGuard } from '../authentication/jwt/jwt-authentication.guard';
+import { RequestWithUser } from '../authentication/request-with-user';
 
 @Controller('venues')
 export class VenuesController {
@@ -30,7 +32,8 @@ export class VenuesController {
 
   @Post()
   @UseGuards(JwtAuthenticationGuard)
-  create(@Body() venue: CreateVenueDto) {
+  create(@Body() venue: CreateVenueDto, @Req() request: RequestWithUser) {
+    console.log(`Venue posted by ${request.user.name}`);
     return this.venuesService.create(venue);
   }
 
@@ -42,7 +45,12 @@ export class VenuesController {
 
   @Patch(':id')
   @UseGuards(JwtAuthenticationGuard)
-  update(@Param('id', ParseIntPipe) id: number, @Body() venue: UpdateVenueDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() venue: UpdateVenueDto,
+    @Req() request: RequestWithUser,
+  ) {
+    console.log(`Venue edited by ${request.user.name}`);
     return this.venuesService.update(id, venue);
   }
 }
