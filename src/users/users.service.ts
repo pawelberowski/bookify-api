@@ -41,7 +41,7 @@ export class UsersService {
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error?.code === PrismaError.UniqueConstraintFailed
       ) {
-        throw new ConflictException('User with that email alredy exists');
+        throw new ConflictException('User with that email already exists');
       }
       throw error;
     }

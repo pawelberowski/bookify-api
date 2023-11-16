@@ -52,6 +52,7 @@ export class AuthenticationService {
   async getAuthenticatedUser(logInData: LogInDto) {
     const user = await this.getUserByEmail(logInData.email);
     await this.verifyPassword(logInData.password, user.password);
+    return user;
   }
 
   getCookieWithJwtToken(userId: number) {
