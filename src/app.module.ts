@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { VenuesModule } from './venues/venues.module';
+import { AuthenticationModule } from './users/authentication.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { VenuesModule } from './venues/venues.module';
       }),
     }),
     VenuesModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
