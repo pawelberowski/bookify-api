@@ -5,6 +5,7 @@ import { PrismaError } from '../../prisma/prisma-error.enum';
 import { VenueNotFoundException } from './venue-not-found.exception';
 import { UpdateVenueDto } from './update-venue.dto';
 import { CreateVenueDto } from './create-venue.dto';
+import { GetVenuesDto } from './get-venues.dto';
 
 @Injectable()
 export class VenuesService {
@@ -12,6 +13,18 @@ export class VenuesService {
 
   getAll() {
     return this.prismaService.venue.findMany();
+  }
+
+  getByFilter(query: GetVenuesDto) {
+    console.log('get by w service');
+    return this.prismaService.venue.findMany({
+      where: {
+        pricePerNightInEUR: {
+          gt: query.priceInEuroMin,
+          lt: query.priceInEuroMax,
+        },
+      },
+    });
   }
 
   async getById(id: number) {

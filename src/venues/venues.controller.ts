@@ -7,20 +7,28 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
 import { CreateVenueDto } from './create-venue.dto';
 import { UpdateVenueDto } from './update-venue.dto';
 import { JwtAuthenticationGuard } from '../authentication/jwt/jwt-authentication.guard';
+import { GetVenuesDto } from './get-venues.dto';
 
 @Controller('venues')
 export class VenuesController {
   constructor(private readonly venuesService: VenuesService) {}
 
+  // @Get()
+  // getAll() {
+  //   return this.venuesService.getAll();
+  // }
+
   @Get()
-  getAll() {
-    return this.venuesService.getAll();
+  async getByFilter(@Query() query: GetVenuesDto) {
+    console.log(query);
+    return this.venuesService.getByFilter(query);
   }
 
   @Get(':id')
