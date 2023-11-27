@@ -9,11 +9,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { SignUpDto } from './dto/sign-up';
-import { LogInDto } from './dto/log-in';
+import { SignUpDto } from './dto/sign-up.dto';
+import { LogInDto } from './dto/log-in.dto';
 import { Response } from 'express';
 import { RequestWithUser } from './request-with-user';
 import { JwtAuthenticationGuard } from './jwt/jwt-authentication.guard';
+import { AuthenticationResponseDto } from './dto/authentication-response.dto';
+import { TransformPlainToInstance } from 'class-transformer';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -21,17 +23,20 @@ export class AuthenticationController {
 
   @UseGuards(JwtAuthenticationGuard)
   @Get()
+  @TransformPlainToInstance(AuthenticationResponseDto)
   authenticate(@Req() request: RequestWithUser) {
     return request.user;
   }
 
   @Post('sign-up')
+  @TransformPlainToInstance(AuthenticationResponseDto)
   async signUp(@Body() signUpData: SignUpDto) {
     return this.authenticationService.signUp(signUpData);
   }
 
   @HttpCode(200)
   @Post('log-in')
+  @TransformPlainToInstance(AuthenticationResponseDto)
   async logIn(
     @Body() logInData: LogInDto,
     @Res({ passthrough: true }) response: Response,

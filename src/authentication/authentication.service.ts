@@ -1,9 +1,9 @@
 import { UsersService } from '../users/users.service';
-import { SignUpDto } from './dto/sign-up';
+import { SignUpDto } from './dto/sign-up.dto';
 import * as bcrypt from 'bcrypt';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WrongCredentialsException } from './wrong-credentials-exception';
-import { LogInDto } from './dto/log-in';
+import { LogInDto } from './dto/log-in.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './token-payload.interface';
