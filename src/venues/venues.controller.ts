@@ -20,14 +20,8 @@ import { GetVenuesDto } from './get-venues.dto';
 export class VenuesController {
   constructor(private readonly venuesService: VenuesService) {}
 
-  // @Get()
-  // getAll() {
-  //   return this.venuesService.getAll();
-  // }
-
   @Get()
   async getByFilter(@Query() query: GetVenuesDto) {
-    console.log(query);
     return this.venuesService.getByFilter(query);
   }
 

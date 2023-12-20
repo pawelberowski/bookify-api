@@ -6,9 +6,9 @@ export class GetVenuesDto {
   @IsNumber()
   @Type(() => Number)
   @CanBeUndefined()
-  priceInEuroMin: number;
+  priceInEuroMin?: number;
   @IsNumber()
   @Type(() => Number)
   @CanBeUndefined()
-  priceInEuroMax: number;
+  priceInEuroMax?: number;
 }
