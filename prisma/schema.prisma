@@ -10,7 +10,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String
+}
+
 model Venue {
-  id   Int    @id @default(autoincrement())
-  name String
+  id                    Int     @id @default(autoincrement())
+  name                  String
+  postalCode            String
+  cityName              String
+  latitude              Float
+  longitude             Float
+  pricePerNightInEUR    Int
+  rating                Float
+  numberOfReviews       Int
+  capacity              Int
+  amountOfBeds          Int
+  description           String
+  checkInHour           String
+  checkOutHour          String
+  metersFromCityCenter  Int
+  phone                 String
+  email                 String
+  fireplace             Boolean
+  speakers              Boolean
+  wiFi                  Boolean
+  restaurantInHouse     Boolean
+  bar                   Boolean
+  pool                  Boolean
+  jacuzzi               Boolean
+  garden                Boolean
+  fitnessCenter         Boolean
+  reception24H          Boolean
+  karaoke               Boolean
+  outdoorMusic          Boolean
+  indoorMusic           Boolean
+  library               Boolean
+  petFriendly           Boolean
+  parking               Boolean
+  playground            Boolean
+  kitchen               Boolean
+  bathroom              Boolean
+  hypoallergenicBedding Boolean
+  tv                    Boolean
+  safe                  Boolean
+  wheelchairFriendly    Boolean
+  shortGrownFriendly    Boolean
+  blindFriendly         Boolean
+  deafFriendly          Boolean
+  lakeNearby            Boolean
+  forestNearby          Boolean
+  mountainsNearby       Boolean
+  seaNearby             Boolean
+  nationalParkNearby    Boolean
+  parkNearby            Boolean
+  mallNearby            Boolean
+  zooNearby             Boolean
+  churchNearby          Boolean
+  oldTownNearby         Boolean
+  monumentNearby        Boolean
+  museumNearby          Boolean
+  theatreNearby         Boolean
+  cinemaNearby          Boolean
+  amusementParkNearby   Boolean
+  restaurantNearby      Boolean
 }
